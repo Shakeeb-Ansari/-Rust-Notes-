@@ -1,6 +1,6 @@
 # VARIABLES:
 
-fn main() {
+    fn main() {
     let name = "John";
     let mut age = 25; // Creating a mutable variable
     println!("My name is {} and I am {} years old",name,age);
