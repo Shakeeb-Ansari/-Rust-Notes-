@@ -9,13 +9,14 @@ Let's create a conditional based upon 3 conditions:
     let knows_person = true;
 
 ### Using If/Else:
-if age>=20 && check_id || knows_person {                    //&&=and , ||=or
-    println!("Bartender: What would you like to drink?");
-}   else if age < 20 && check_id {
-    println!("Bartender: Sorry, you are not welcomed here.");
-}   else {
-    println!("Bartender: Please show me your ID");
-}
+
+    if age>=20 && check_id || knows_person {                    //&&=and , ||=or
+        println!("Bartender: What would you like to drink?");
+    }   else if age < 20 && check_id {
+        println!("Bartender: Sorry, you are not welcomed here.");
+    }   else {
+        println!("Bartender: Please show me your ID");
+    }
 
 ### Shorthand If:
     let is_of_age = if age >= 20 {true} else {false};
