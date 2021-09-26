@@ -57,11 +57,11 @@ Let's create an array and print it:
 To slice first two values, then:
 
     let slice: &[i32]=&numbers[0..2];
-    println!("Slice is {}",slice);
+    println!("Slice is {:?}",slice);
 To slice 1st and 2nd index's values, then:
 
     let slice: &[i32]=&numbers[1..3];
-    println!("Slice is {}",slice);
+    println!("Slice is {:?}",slice);
 
 
 # VECTORS
@@ -70,7 +70,7 @@ To slice 1st and 2nd index's values, then:
 
 To create a simple vector and print it:
 
-    let mut numbers: Vec<i32> vec![1,2,3,4];
+    let mut numbers: Vec<i32> = vec![1,2,3,4];
     println!("{:?}",numbers);
 
 ### To print a specific single value using index:
