@@ -70,19 +70,19 @@ Let's create a struct 'Color':
             }
         }
 
-### Making a Function to Create a full name:
+### Making a Method to Create a full name:
 
         fn full_name(&self) -> String {     //%self,Referencing the struct Person to replace it with 'Person'
             format!("{} {}", self.first_name, self.last_name)
         }
 
-### Making a Function to Mutate or Change the Last name:
+### Making a Method to Mutate or Change the Last name:
 
         fn set_last_name(&mut self, last: &str) {
             self.last_name = last.to_string();
         }
 
-### Making a function for Name to Tuple, we want to return first and last name:
+### Making a Method for Name to Tuple, we want to return first and last name:
 
         fn to_tuple(self) -> (String, String) {
             (self.first_name, self.last_name)
