@@ -119,6 +119,106 @@ fn main() {
 This works just fine and the **heap** data does get copied.
 
 
+# References/Borrowing:
+
+Let's have a look on an example in which we defined and used a ```calculate_length``` function that has a *reference* to an object as a parameter instead of taking *ownership* of the value:
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1);
+
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+These *ampersands(&)* are references, and they allow you to refer to some value without taking ownership of it. The ```&s1``` syntax lets us create a reference that refers to the value of ```s1``` but does not own it. Because it does not own it, the value it points to will not be dropped when the reference goes out of scope.
+We call having references as function parameters *borrowing*. As in real life, if a person owns something, you can borrow it from them. When you’re done, you have to give it back.
+Now let's see what happens if we try to modify something we’re borrowing?
+
+```rust
+fn main() {
+    let s = String::from("hello");
+
+    change(&s);
+}
+
+fn change(some_string: &String) {
+    some_string.push_str(", world");
+}
+```
+
+YEAH! You guessed it right. It doesn't work and provides us with the following error:
+
+```rust
+$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0596]: cannot borrow `*some_string` as mutable, as it is behind a `&` reference
+ --> src/main.rs:8:5
+  |
+7 | fn change(some_string: &String) {
+  |                        ------- help: consider changing this to be a mutable reference: `&mut String`
+8 |     some_string.push_str(", world");
+  |     ^^^^^^^^^^^ `some_string` is a `&` reference, so the data it refers to cannot be borrowed as mutable
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0596`.
+error: could not compile `ownership`
+
+To learn more, run the command again with --verbose.
+```
+
+Just as variables are immutable by default, so are references. We’re not allowed to modify something we have a reference to until and unless we make them mutable.
+We can fix the error as follows:
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+First, we had to change ```s``` to be ```mut```. Then we had to create a mutable reference with ```&mut s``` and accept a mutable reference with ```some_string: &mut String```.
+But mutable references have one big restriction: you can have only one mutable reference to a particular piece of data in a particular scope. For example the following code will fail:
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+
+    let r1 = &mut s;
+    let r2 = &mut s;
+
+    println!("{}, {}", r1, r2);
+}
+```
+
+In this case, we can use curly brackets to create a new scope, allowing for multiple mutable references and that solves our problem:
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+
+    {
+        let r1 = &mut s;
+    } // r1 goes out of scope here, so we can make a new reference with no problems.
+
+    let r2 = &mut s;
+}
+```
+
+
+
+
 
 
 
